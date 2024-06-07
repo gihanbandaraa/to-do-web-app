@@ -103,7 +103,7 @@ app.post("/login", async (req, res) => {
   } else {
     return res.status(400).json({
       error: true,
-      message: "Invalid Credintials",
+      message: "Invalid Credentials",
     });
   }
 });
