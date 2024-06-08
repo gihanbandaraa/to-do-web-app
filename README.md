@@ -8,6 +8,14 @@ This project is a notes management application built with Node.js, MongoDB, HTML
 - Search functionality to filter notes
 - Responsive design for various devices
 
+## Technologies Used
+
+- Node.js
+- MongoDB
+- HTML
+- CSS
+- JavaScript
+
 ## Installation
 
 1. Clone the repository
