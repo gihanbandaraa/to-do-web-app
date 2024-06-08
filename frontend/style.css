@@ -60,16 +60,20 @@ body {
 button {
   width: 100%;
   padding: 15px;
-  background-color: #abc4ff;
+  background-color: #00b4d8;
   border: none;
   border-radius: 5px;
   color: white;
   font-size: 1rem;
   cursor: pointer;
+  font-size: large;
+  font-weight: 700;
 }
 
 button:hover {
-  background-color: #ccdbfd;
+  background-color: white;
+  border: #00b4d8 1px solid;
+  color: #00b4d8;
 }
 
 .signin {
