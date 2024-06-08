@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Welcome to your Dashboard</h1>
+        <!-- Your dashboard content here -->
+        <button id="logout-button">Logout</button>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const token = localStorage.getItem("token");
+            if (!token) {
+                // Redirect to login if no token is found
+                window.location.href = "/frontend/login.html";
+            } else {
+                // Optionally, you can verify the token with the server here
+                // Fetch some user data using the token to ensure it's valid
+                fetch("http://localhost:8000/get-user", {
+                    method: "GET",
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        // If token is invalid, redirect to login
+                        window.location.href = "/frontend/login.html";
+                    }
+                })
+                .catch(error => {
+                    console.error("Error verifying token:", error);
+                    window.location.href = "/frontend/login.html";
+                });
+            }
+
+            // Logout functionality
+            const logoutButton = document.getElementById("logout-button");
+            logoutButton.addEventListener("click", () => {
+                localStorage.removeItem("token");
+                window.location.href = "/frontend/login.html";
+            });
+        });
+    </script>
+</body>
+</html>

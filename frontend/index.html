@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-content">
+                <h1>Welcome to Task Master</h1>
+                <p>We provide a streamlined solution for effortless task
+                    management and productivity enhancement.</p>
+                <form>
+                    <div class="input-group">
+                        <input type="text" id="fullname" placeholder="Full name" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Create an account</button>
+                </form>
+                <p class="signin">Have an account? <a href="./login.html">Sign In</a></p>
+            </div>
+        </div>
+        <div class="image-container">
+            <img src="./Images/loginbackground.svg" alt="Illustration">
+        </div>
+        
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.querySelector("form");
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const fullName = document.getElementById("fullname").value;
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                const requestBody = {
+                    fullName,
+                    email,
+                    password,
+                };
+
+                try {
+                    const response = await fetch("http://localhost:8000/create-account", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(requestBody),
+                    });
+
+                    const result = await response.json();
+                    console.log("Response:", result);  // Log the response for debugging
+
+                    if (response.ok) {
+                        alert("Registration successful");
+                        localStorage.setItem("token", result.accessToken);
+                        // Debugging log before navigation
+                        console.log("Navigating to dashboard");
+                        // Navigate to the correct dashboard URL
+                        window.location.href = "/frontend/dashboard.html";
+                    } else {
+                        alert(result.message || "Registration failed");
+                    }
+                } catch (error) {
+                    console.error("Error during registration:", error);
+                    alert("An error occurred. Please try again later.");
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>

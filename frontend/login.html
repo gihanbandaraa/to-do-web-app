@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img src="./Images/loginbackground.svg" alt="Illustration">
+        </div>
+        <div class="form-container">
+            <div class="form-content">
+                <h1>Login</h1>
+                <p>Welcome to our Task Master! Log in effortlessly to access your tasks and boost your
+                    productivity with our user-friendly interface.</p>
+                <form id="login-form">
+                    <div class="input-group">
+                        <input type="email" id="email" placeholder="Email" required>
+                    </div>
+                    <div class="input-group">
+                        <input type="password" id="password" placeholder="Password" required>
+                    </div>
+                    <button type="submit">Login</button>
+                </form>
+                <p class="signin">Don't have an account? <a href="./index.html">Create one</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const form = document.getElementById("login-form");
+
+            form.addEventListener("submit", async (event) => {
+                event.preventDefault();
+
+                const email = document.getElementById("email").value;
+                const password = document.getElementById("password").value;
+
+                const requestBody = {
+                    email,
+                    password,
+                };
+
+                try {
+                    const response = await fetch("http://localhost:8000/login", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(requestBody),
+                    });
+
+                    const result = await response.json();
+                    console.log("Response:", result);  // Log the response for debugging
+
+                    if (response.ok) {
+                        alert("Login successful");
+                        localStorage.setItem("token", result.accessToken);
+                        // Navigate to the dashboard
+                        window.location.href = "/frontend/dashboard.html";
+                    } else {
+                        alert(result.message || "Login failed");
+                    }
+                } catch (error) {
+                    console.error("Error during login:", error);
+                    alert("An error occurred. Please try again later.");
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
