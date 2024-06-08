@@ -1,53 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="dashboard.css">
 </head>
+
 <body>
+    <nav class="nav-container">
+        <div class="nav-content">
+            <h2 class="logo">Task Master</h2>
+            <div class="search-container">
+                <input class="search" type="search" placeholder="Search" />
+            </div>
+            <ul>
+                <li><a href="">Home</a></li>
+                <li><a href="">About Us</a></li>
+                <li id="logout-button">Logout</li>
+            </ul>
+        </div>
+    </nav>
     <div class="dashboard-container">
         <h1>Welcome to your Dashboard</h1>
-        <!-- Your dashboard content here -->
-        <button id="logout-button">Logout</button>
+        <button id="open-modal" class="add-note-button">+</button>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const token = localStorage.getItem("token");
-            if (!token) {
-                // Redirect to login if no token is found
-                window.location.href = "/frontend/login.html";
-            } else {
-                // Optionally, you can verify the token with the server here
-                // Fetch some user data using the token to ensure it's valid
-                fetch("http://localhost:8000/get-user", {
-                    method: "GET",
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        // If token is invalid, redirect to login
-                        window.location.href = "/frontend/login.html";
-                    }
-                })
-                .catch(error => {
-                    console.error("Error verifying token:", error);
-                    window.location.href = "/frontend/login.html";
-                });
-            }
+    <div class="notes-container">
+        <div class="pinned-notes-container">
+          
+            <!-- Pinned notes will be appended here by JavaScript -->
+        </div>
+        <div class="regular-notes-container">
+            
+            <!-- Regular notes will be appended here by JavaScript -->
+        </div>
+    </div>
 
-            // Logout functionality
-            const logoutButton = document.getElementById("logout-button");
-            logoutButton.addEventListener("click", () => {
-                localStorage.removeItem("token");
-                window.location.href = "/frontend/login.html";
-            });
-        });
-    </script>
+
+    <div id="note-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Add Note</h2>
+            <form id="add-note-form">
+                <div class="input-group">
+                    <input type="text" id="note-title" placeholder="Title" required>
+                </div>
+                <div class="input-group">
+                    <textarea id="note-content" placeholder="Content" required></textarea>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="note-tags" placeholder="Tags (comma separated)">
+                </div>
+                <button type="submit">Add Note</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="./dashboard.js"></script>
+
 </body>
+
 </html>
