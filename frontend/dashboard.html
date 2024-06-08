@@ -13,7 +13,8 @@
         <div class="nav-content">
             <h2 class="logo">Task Master</h2>
             <div class="search-container">
-                <input class="search" type="search" placeholder="Search" />
+                <input class="search" type="text" placeholder="Search" />
+                <img  src="./Images//search (2).png" width="24" height="24" id="searchicon"/>
             </div>
             <ul>
                 <li><a href="">Home</a></li>
@@ -23,7 +24,7 @@
         </div>
     </nav>
     <div class="dashboard-container">
-        <h1>Welcome to your Dashboard</h1>
+    
         <button id="open-modal" class="add-note-button">+</button>
     </div>
 
@@ -54,6 +55,25 @@
                     <input type="text" id="note-tags" placeholder="Tags (comma separated)">
                 </div>
                 <button type="submit">Add Note</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Edit Note</h2>
+            <form id="edit-note-form">
+                <div class="input-group">
+                    <input type="text" id="edit-note-title" placeholder="Title" required>
+                </div>
+                <div class="input-group">
+                    <textarea id="edit-note-content" placeholder="Content" required></textarea>
+                </div>
+                <div class="input-group">
+                    <input type="text" id="edit-note-tags" placeholder="Tags (comma separated)">
+                </div>
+                <button type="submit">Save Changes</button>
             </form>
         </div>
     </div>
